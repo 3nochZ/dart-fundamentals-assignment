@@ -4,6 +4,12 @@
 int findMax(List<int> numbers) {
 	int max = numbers[0];
 
+	//add empty checker
+	if (numbers.isEmpty) {
+    print('error: list is empty');
+    return 0; // default value
+  }
+
 	for (int i in numbers) {
 		if (i > max){
 			max = i;
