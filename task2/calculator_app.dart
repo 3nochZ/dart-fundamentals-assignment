@@ -34,6 +34,11 @@ int calculateSum(List<int> numbers) {
   return sum;
 }
 
+double calculateAverage(List<int> numbers) {
+  int sum = calculateSum(numbers); 
+  return sum / numbers.length;
+}
+
 // test
 void main() {
 	final numbers = <int>[34, -7, 89, 12, -45, 67, 3, 100, -2, 55];
@@ -41,6 +46,7 @@ void main() {
 	int max = findMax(numbers);
 	int min = findMin(numbers);
 	int sum = calculateSum(numbers);
+	double avg = calculateAverage(numbers);
 
 	print('Number Analysis Results');
 	print('========================');
@@ -48,6 +54,7 @@ void main() {
 	print('Maximum Value : $max');
 	print('Minimum Value : $min');
 	print('Sum: $sum');
+	print('Average: $avg');
 }
 
 
