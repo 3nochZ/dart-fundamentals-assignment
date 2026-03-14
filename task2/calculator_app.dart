@@ -92,6 +92,37 @@ List<int> sortNumbers(List<int> numbers) {
   return sorted;
 }
 
+/*
+using dart collection methods
+*/
+
+int findMaxBuiltIn(List<int> numbers) =>
+    numbers.isEmpty ? 0 : numbers.reduce((a, b) => a > b ? a : b);
+
+int findMinBuiltIn(List<int> numbers) =>
+    numbers.isEmpty ? 0 : numbers.reduce((a, b) => a < b ? a : b);
+
+int calculateSumBuiltIn(List<int> numbers) =>
+    numbers.fold(0, (sum, n) => sum + n);
+
+double calculateAverageBuiltIn(List<int> numbers) =>
+    numbers.isEmpty ? 0 : numbers.fold(0, (sum, n) => sum + n) / numbers.length;
+
+int countNegativesBuiltIn(List<int> numbers) =>
+    numbers.where((n) => n < 0).length;
+
+/*
+trade-offs
+
+manual loops:
+- better for learning
+- shows how logic works
+
+built-in methods:
+- shorter and cleaner
+- usually more efficient
+*/
+
 // test
 void main() {
 	final numbers = <int>[34, -7, 89, 12, -45, 67, 3, 100, -2, 55];
