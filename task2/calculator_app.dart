@@ -2,13 +2,13 @@
 // name: Henok Zemedkun
 
 int findMax(List<int> numbers) {
-	int max = numbers[0];
-
 	//add empty checker
 	if (numbers.isEmpty) {
     print('error: list is empty');
-    return 0; // default value
-  }
+    return 0;
+	}
+
+	int max = numbers[0];
 
 	for (int i in numbers) {
 		if (i > max){
@@ -19,30 +19,60 @@ int findMax(List<int> numbers) {
 }
 
 int findMin(List<int> numbers) {
-  int min = numbers[0];
+	//add empty checker
+	if (numbers.isEmpty) {
+    print('error: list is empty');
+    return 0;
+	}
 
-  for (int n in numbers) {
-    if (n < min) {
-      min = n; 
-    }
-  }
+	int min = numbers[0];
 
-  return min;
+	for (int n in numbers) {
+	if (n < min) {
+		min = n; 
+		}
+	}
+
+	return min;
 }
 
 int calculateSum(List<int> numbers) {
-  int sum = 0; 
+	//add empty checker
+	if (numbers.isEmpty) {
+    print('error: list is empty');
+    return 0;
+	}
 
-  for (int n in numbers) {
-    sum += n;
-  }
+	int sum = 0; 
 
-  return sum;
+	for (int n in numbers) {
+	sum += n;
+	}
+
+	return sum;
 }
 
 double calculateAverage(List<int> numbers) {
   int sum = calculateSum(numbers); 
   return sum / numbers.length;
+}
+
+int countNegatives(List<int> numbers) {
+	//add empty checker
+	if (numbers.isEmpty) {
+    print('error: list is empty');
+    return 0;
+	}
+
+	int count = 0;
+
+	for (int n in numbers) {
+	if (n < 0) {
+		count++;
+		}
+	}
+
+	return count;
 }
 
 // test
@@ -53,6 +83,7 @@ void main() {
 	int min = findMin(numbers);
 	int sum = calculateSum(numbers);
 	double avg = calculateAverage(numbers);
+	int negativeCount = countNegatives(numbers);
 
 	print('Number Analysis Results');
 	print('========================');
@@ -61,6 +92,7 @@ void main() {
 	print('Minimum Value : $min');
 	print('Sum: $sum');
 	print('Average: $avg');
+	print('Negative Count: $negativeCount');
 }
 
 
