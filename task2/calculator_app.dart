@@ -98,14 +98,42 @@ class Calculator {
 Future<void> main() async {
   final calc = Calculator('MyCalculator');
 
+  final stopwatch = Stopwatch();
+
   print('--- ${calc.name} ---');
 
+  // 1. Sequential Execution
+  print('\nStarting Sequential Execution...');
+  stopwatch.start();
   await calc.displayResult(10, 4, 'add');
   await calc.displayResult(10, 4, 'subtract');
   await calc.displayResult(10, 4, 'multiply');
-  await calc.displayResult(10, 4, 'divide');
-  await calc.displayResult(15, 3, 'divide');
-  await calc.displayResult(10, 0, 'divide'); // test error
+  stopwatch.stop();
+  final sequentialTime = stopwatch.elapsedMilliseconds;
+  print('Sequential time: ${sequentialTime}ms');
+
+  stopwatch.reset();
+
+  // 2. Parallel Execution (using Future.wait)
+  print('\nStarting Parallel Execution...');
+  stopwatch.start();
+  /*
+    Why parallel is faster:
+    In sequential execution, each 'await' pauses the program until the operation (and its delay) completes 
+    before starting the next one. Total time = sum of all delays.
+    
+    In parallel execution (Future.wait), we start all operations simultaneously. 
+    They all run concurrently, so the total time is limited by the longest single delay 
+    rather than the sum of all delays.
+  */
+  await Future.wait([
+    calc.displayResult(10, 4, 'divide'),
+    calc.displayResult(15, 3, 'divide'),
+    calc.displayResult(10, 0, 'divide'), // test error
+  ]);
+  stopwatch.stop();
+  final parallelTime = stopwatch.elapsedMilliseconds;
+  print('Parallel time: ${parallelTime}ms');
 
   print('\nTesting Chained Operations:');
   await calc.computeChained([1, 2, 3, 4], 'add');
