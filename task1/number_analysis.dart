@@ -1,83 +1,75 @@
 // task 1: number analysis app
 // name: Henok Zemedkun
 
+/// Finds the maximum value in a list of integers.
 int findMax(List<int> numbers) {
-	//add empty checker
-	if (numbers.isEmpty) {
-    print('error: list is empty');
+  if (numbers.isEmpty) {
+    print('Error: The list is empty. Returning 0 as maximum.');
     return 0;
-	}
+  }
 
-	int max = numbers[0];
-
-	for (int i in numbers) {
-		if (i > max){
-			max = i;
-		}
-	}
-	return max;
+  int max = numbers[0];
+  for (int number in numbers) {
+    if (number > max) {
+      max = number;
+    }
+  }
+  return max;
 }
 
+/// Finds the minimum value in a list of integers.
 int findMin(List<int> numbers) {
-	//add empty checker
-	if (numbers.isEmpty) {
-    print('error: list is empty');
+  if (numbers.isEmpty) {
+    print('Error: The list is empty. Returning 0 as minimum.');
     return 0;
-	}
+  }
 
-	int min = numbers[0];
-
-	for (int n in numbers) {
-	if (n < min) {
-		min = n; 
-		}
-	}
-
-	return min;
+  int min = numbers[0];
+  for (int number in numbers) {
+    if (number < min) {
+      min = number;
+    }
+  }
+  return min;
 }
 
+/// Calculates the sum of all integers in a list.
 int calculateSum(List<int> numbers) {
-	//add empty checker
-	if (numbers.isEmpty) {
-    print('error: list is empty');
+  if (numbers.isEmpty) {
+    print('Error: The list is empty. Returning sum 0.');
     return 0;
-	}
+  }
 
-	int sum = 0; 
-
-	for (int n in numbers) {
-	sum += n;
-	}
-
-	return sum;
+  int sum = 0;
+  for (int number in numbers) {
+    sum += number;
+  }
+  return sum;
 }
 
+/// Calculates the average value of a list of integers.
 double calculateAverage(List<int> numbers) {
-  int sum = calculateSum(numbers); 
+  if (numbers.isEmpty) return 0.0;
+  int sum = calculateSum(numbers);
   return sum / numbers.length;
 }
 
+/// Counts how many negative integers are in the list.
 int countNegatives(List<int> numbers) {
-	//add empty checker
-	if (numbers.isEmpty) {
-    print('error: list is empty');
-    return 0;
-	}
+  if (numbers.isEmpty) return 0;
 
-	int count = 0;
-
-	for (int n in numbers) {
-	if (n < 0) {
-		count++;
-		}
-	}
-
-	return count;
+  int count = 0;
+  for (int number in numbers) {
+    if (number < 0) {
+      count++;
+    }
+  }
+  return count;
 }
 
-// bubble sort
+/// Sorts a list of integers using the Bubble Sort algorithm.
 List<int> sortNumbers(List<int> numbers) {
-  List<int> sorted = List.from(numbers); // copy list
+  List<int> sorted = List.from(numbers);
 
   for (int i = 0; i < sorted.length - 1; i++) {
     for (int j = 0; j < sorted.length - i - 1; j++) {
@@ -88,12 +80,12 @@ List<int> sortNumbers(List<int> numbers) {
       }
     }
   }
-
   return sorted;
 }
 
-/*
-using dart collection methods
+/* 
+  Alternative implementations using Dart's built-in collection methods.
+  These are generally more idiomatic and concise.
 */
 
 int findMaxBuiltIn(List<int> numbers) =>
@@ -106,41 +98,28 @@ int calculateSumBuiltIn(List<int> numbers) =>
     numbers.fold(0, (sum, n) => sum + n);
 
 double calculateAverageBuiltIn(List<int> numbers) =>
-    numbers.isEmpty ? 0 : numbers.fold(0, (sum, n) => sum + n) / numbers.length;
+    numbers.isEmpty ? 0.0 : calculateSumBuiltIn(numbers) / numbers.length;
 
 int countNegativesBuiltIn(List<int> numbers) =>
     numbers.where((n) => n < 0).length;
 
-/*
-trade-offs
-
-manual loops:
-- better for learning
-- shows how logic works
-
-built-in methods:
-- shorter and cleaner
-- usually more efficient
-*/
-
-// test
 void main() {
-	final numbers = <int>[34, -7, 89, 12, -45, 67, 3, 100, -2, 55];
+  final List<int> numbers = [34, -7, 89, 12, -45, 67, 3, 100, -2, 55];
 
-	int max = findMax(numbers);
-	int min = findMin(numbers);
-	int sum = calculateSum(numbers);
-	double avg = calculateAverage(numbers);
-	int negativeCount = countNegatives(numbers);
+  final int max = findMax(numbers);
+  final int min = findMin(numbers);
+  final int sum = calculateSum(numbers);
+  final double avg = calculateAverage(numbers);
+  final int negativeCount = countNegatives(numbers);
+  final List<int> sorted = sortNumbers(numbers);
 
-	print('Number Analysis Results');
-	print('========================');
-	print('numbers: $numbers');
-	print('Maximum Value : $max');
-	print('Minimum Value : $min');
-	print('Sum: $sum');
-	print('Average: $avg');
-	print('Negative Count: $negativeCount');
+  print('Number Analysis Results');
+  print('========================');
+  print('Numbers: $numbers');
+  print('Sorted:  $sorted');
+  print('Maximum Value : $max');
+  print('Minimum Value : $min');
+  print('Sum: $sum');
+  print('Average: $avg');
+  print('Negative Count: $negativeCount');
 }
-
-
