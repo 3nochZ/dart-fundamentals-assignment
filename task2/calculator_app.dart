@@ -6,6 +6,9 @@ import 'dart:async';
 class Calculator {
   final String name;
 
+  // history log
+  final List<String> history = [];
+
   Calculator(this.name);
 
   double add(double a, double b) => a + b;
@@ -60,9 +63,19 @@ class Calculator {
   Future<void> displayResult(double a, double b, String op) async {
     try {
       final result = await computeAsync(a, b, op);
-      print('$op($a, $b) = $result');
+      final record = '$op($a, $b) = $result';
+      print(record);
+      history.add(record); // save to history
     } catch (e) {
       print('Error: $e');
+    }
+  }
+
+  // print all past calculations
+  void printHistory() {
+    print('\ncalculation history:');
+    for (var item in history) {
+      print(item);
     }
   }
 }
@@ -78,6 +91,9 @@ Future<void> main() async {
   await calc.displayResult(10, 4, 'divide');
   await calc.displayResult(15, 3, 'divide');
   await calc.displayResult(10, 0, 'divide'); // test error
+
+   // print stored history
+  calc.printHistory();
 
   print('All calculations complete.');
 }
