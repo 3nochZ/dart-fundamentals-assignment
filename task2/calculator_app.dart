@@ -78,6 +78,21 @@ class Calculator {
       print(item);
     }
   }
+
+  // chain operations sequentially
+  Future<double> computeChained(List<double> values, String op) async {
+    if (values.isEmpty) return 0.0;
+    
+    double result = values[0];
+    for (var i = 1; i < values.length; i++) {
+      result = await computeAsync(result, values[i], op);
+    }
+    
+    final record = 'Chained $op$values = $result';
+    print(record);
+    history.add(record);
+    return result;
+  }
 }
 
 Future<void> main() async {
@@ -91,6 +106,10 @@ Future<void> main() async {
   await calc.displayResult(10, 4, 'divide');
   await calc.displayResult(15, 3, 'divide');
   await calc.displayResult(10, 0, 'divide'); // test error
+
+  print('\nTesting Chained Operations:');
+  await calc.computeChained([1, 2, 3, 4], 'add');
+  await calc.computeChained([100, 20, 10], 'subtract');
 
    // print stored history
   calc.printHistory();
