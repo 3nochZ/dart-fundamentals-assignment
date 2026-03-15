@@ -56,4 +56,13 @@ class Calculator {
 
     return result;
   }
+
+  Future<void> displayResult(double a, double b, String op) async {
+    try {
+      final result = await computeAsync(a, b, op);
+      print('$op($a, $b) = $result');
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 }
