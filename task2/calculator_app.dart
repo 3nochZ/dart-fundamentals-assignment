@@ -66,3 +66,18 @@ class Calculator {
     }
   }
 }
+
+Future<void> main() async {
+  final calc = Calculator('MyCalculator');
+
+  print('--- ${calc.name} ---');
+
+  await calc.displayResult(10, 4, 'add');
+  await calc.displayResult(10, 4, 'subtract');
+  await calc.displayResult(10, 4, 'multiply');
+  await calc.displayResult(10, 4, 'divide');
+  await calc.displayResult(15, 3, 'divide');
+  await calc.displayResult(10, 0, 'divide'); // test error
+
+  print('All calculations complete.');
+}
