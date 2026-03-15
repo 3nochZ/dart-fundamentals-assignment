@@ -67,3 +67,51 @@ If an empty list is passed, the code tries to access numbers[0].
 Since the list has no elements, Dart throws a runtime error (RangeError).
 
 We can prevent this by checking if the list is empty first. This makes the function safer because it detects invalid input before processing it.
+
+Q6. What is the difference between a synchronous function and an asynchronous function in Dart? In your Calculator class, why is divide() synchronous while computeAsync() is asynchronous?
+
+A synchronous function runs immediately and returns a result right away. The program waits until the function finishes before continuing.
+
+An asynchronous function may take time to finish (for example, waiting for a network request or database query). Instead of returning the result immediately, it returns a Future that will contain the result later.
+
+Q7. Explain the purpose of the await keyword in Dart. What happens if you forget to use await when calling an async function that returns a Future? What does your program print instead of the result?
+ 
+The await keyword tells Dart to pause execution of the current async function until the Future finishes and returns its result. If we forget to use await, the function will return a Future object instead of the actual value.
+ 
+ 
+Q8. What is the purpose of the try-catch block in your displayResult() method? What would happen if you removed it and then called displayResult(10, 0, 'divide')?
+ 
+The try-catch block is used to safely handle errors that might occur during the calculation. In our case, it catches the error thrown when dividing by zero.
+
+If the try-catch block is removed and the program runs:
+
+displayResult(10, 0, 'divide')
+
+the divide() method throws an ArgumentError, and the program will crash instead of continuing. The error message would appear and the remaining calculations would not run.
+
+Using try-catch allows the program to handle errors gracefully and print a friendly message instead of stopping execution.
+
+Q9. Why is it good design to have divide() throw an ArgumentError rather than simply returning 0 or printing an error inside the divide() method itself? What principle of function design does this reflect?
+
+Throwing an ArgumentError is better design because it clearly signals that the input values are invalid.
+
+If the function returned 0, it could be misleading because 0 might look like a valid result.
+If it printed an error inside the function, the caller would have less control over how to handle the error.
+
+By throwing an error, the caller decides how to handle the problem, the function remains focused on performing its task, and errors are handled in a consistent way
+
+This reflects the principle of separation of concerns and good function design, where functions report problems rather than hiding them. 
+
+Q10. What does the async keyword on main() allow you to do? Could this assignment have been written without making main() async? Explain your answer.
+ 
+The async keyword allows the main() function to use the await keyword inside it.
+
+This is important because main() calls displayResult(), which is an asynchronous function that returns a Future. By using await, main() waits for each result before continuing to the next operation.
+
+Without async, main() could not use await. The program would still run, but all the asynchronous calls might start at the same time and the output could appear out of order.
+
+Making main() async ensures the operations run one after another and the results appear with the intended 1.5-second delay between each calculation.
+ 
+ 
+
+
