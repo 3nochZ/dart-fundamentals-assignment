@@ -24,4 +24,36 @@ class Calculator {
     }
     return a / b;
   }
+
+
+  // async calculator with delay
+  Future<double> computeAsync(double a, double b, String op) async {
+    double result;
+
+    switch (op) {
+      case 'add':
+        result = add(a, b);
+        break;
+
+      case 'subtract':
+        result = subtract(a, b);
+        break;
+
+      case 'multiply':
+        result = multiply(a, b);
+        break;
+
+      case 'divide':
+        result = divide(a, b);
+        break;
+
+      default:
+        throw ArgumentError('Unknown operation: $op');
+    }
+
+    // simulate server delay
+    await Future.delayed(Duration(seconds: 1, milliseconds: 500));
+
+    return result;
+  }
 }
